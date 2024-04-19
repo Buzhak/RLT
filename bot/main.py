@@ -4,10 +4,16 @@ import os
 
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
+from motor import motor_asyncio
 
-import hendlers as hendlers
+import hendlers
 
 load_dotenv()
+
+# Подрубаем mongodb
+cluster = motor_asyncio.AsyncIOMotorClient(os.getenv('MONGODB'))
+db = cluster.samlpeDB
+coll = db.sample_collection
 
 
 async def main():

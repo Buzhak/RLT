@@ -6,6 +6,7 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 from constats import WRONG_DATA_MESSAGE, GROUP_DATE
+from main import coll
 
 router = Router()
 
@@ -22,7 +23,8 @@ async def json_hendler(message: Message) -> None:
         dt_from = datetime.fromisoformat(data['dt_from'])
         dt_upto = datetime.fromisoformat(data['dt_upto'])
         group_type = data['group_type']
-        data = f'{GROUP_DATE[group_type]}'
+        data = await coll.find_one()
+        data = f'{data}'
     except:
         data = WRONG_DATA_MESSAGE
 
