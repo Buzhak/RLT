@@ -5,7 +5,6 @@ import os
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
-
 import hendlers as hendlers
 
 load_dotenv()
