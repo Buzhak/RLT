@@ -3,6 +3,7 @@ from unittest import IsolatedAsyncioTestCase, TestCase
 from datetime import datetime
 from utils import convert_to_iso, get_all_dates
 
+
 class TestDateList(IsolatedAsyncioTestCase):
     async def test_hour(self):
         dt_from = datetime(2012, 1, 1, 0, 0)
@@ -31,6 +32,7 @@ class TestDateList(IsolatedAsyncioTestCase):
         group_type = 'month'
         result = await get_all_dates(dt_from, dt_upto, group_type)
         self.assertEqual(len(result), 13)
+
 
 class TestConvertToISO(TestCase):
     def test_day(self):

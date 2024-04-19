@@ -4,10 +4,12 @@ from dateutil.rrule import rrule
 from constats import GROUP_DATE
 
 
-async def get_all_dates(dt_from: datetime, dt_upto: datetime, group_type: str) -> list[str]:
+async def get_all_dates(
+    dt_from: datetime, dt_upto: datetime, group_type: str
+) -> list[str]:
     '''
-    Функция получает два datetime (dt_from, dt_upto) между которыми нужно найти количество
-    часов/дней/недель/месяцев (group_type) и вернуть стоковый список с их обозначениями.
+    Функция получает два datetime (dt_from, dt_upto) между которыми нужно найти все
+    часы|дни|недели|месяцы (group_type) и вернуть стоковый список с их обозначениями.
     '''
     all_dates = [
         dt.strftime(
@@ -27,5 +29,3 @@ def convert_to_iso(date: str, format: str) -> str:
     '''
     iso_date_str = datetime.strptime(date, format).strftime('%Y-%m-%dT%H:%M:%S')
     return iso_date_str
-
-

@@ -18,9 +18,10 @@ async def start_hendler(message: Message) -> None:
     await message.answer('Hello!')
 
 
-@router.message(F.text.regexp('^\{(.|\n)*\}$'))
+@router.message(F.text.regexp('^{(.|\n)*}$'))
 async def json_hendler(message: Message) -> None:
     try:
+
         # Преобразование json в словарь
         data = json.loads(message.text)
 
@@ -49,7 +50,7 @@ async def json_hendler(message: Message) -> None:
 
         # Запрос к базе
         res = coll.aggregate([
-            {'$match':query},
+            {'$match': query},
             {'$group': group},
             {'$sort': sort},
         ])
@@ -61,8 +62,8 @@ async def json_hendler(message: Message) -> None:
 
         # Формируем список дат диапазне указанном пользователем
         all_dates = await get_all_dates(dt_from, dt_upto, group_type)
-        
-        # Формируем результат на основе данных из бд и списка дат 
+
+        # Формируем результат на основе данных из бд и списка дат
         def process_dates(acc: dict, item: str):
             date = convert_to_iso(item, GROUP_DATE[group_type]['format'])
             acc['labels'].append(date)
@@ -76,7 +77,7 @@ async def json_hendler(message: Message) -> None:
         reduce(process_dates, all_dates, data_accumulator)
 
         data = json.dumps(data_accumulator)
-    except:
+    except (KeyError, ValueError, json.decoder.JSONDecodeError):
         data = WRONG_DATA_MESSAGE
 
     await message.answer(str(data))
