@@ -1,3 +1,6 @@
+from dateutil.rrule import rrule, MONTHLY, DAILY, WEEKLY, HOURLY
+
+
 WRONG_DATA_MESSAGE = (
     'Допустимо отправлять только следующие запросы:\n'
     '{"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}\n'
@@ -6,8 +9,8 @@ WRONG_DATA_MESSAGE = (
 )
 
 GROUP_DATE = {
-    'hour': '%Y-%m-%dT%H',
-    'day': '%Y-%m-%d',
-    'week': '%Y-%U',
-    'month': '%Y-%m'
+    'hour': {'format': '%Y-%m-%dT%H', 'type': HOURLY},
+    'day': {'format': '%Y-%m-%d', 'type': DAILY},
+    'week': {'format': '%Y-%U', 'type': WEEKLY},
+    'month': {'format': '%Y-%m', 'type': MONTHLY}
 }
